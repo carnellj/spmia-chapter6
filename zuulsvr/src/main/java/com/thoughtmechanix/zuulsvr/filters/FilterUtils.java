@@ -75,8 +75,9 @@ public class FilterUtils {
                 "'userId':'%s'" +
                 "'message':'%s'}";
 
-        String msg = String.format(log,getCorrelationId(),
+        String msg = String.format(log,
                 "ZUUL",
+                getCorrelationId(),
                 getOrgId(),
                 getUserId(),
                 message);

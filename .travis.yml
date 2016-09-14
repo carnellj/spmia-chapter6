@@ -1,0 +1,29 @@
+language: java
+cache:
+  directories:
+  - $HOME/.m2
+jdk:
+  - oraclejdk8
+sudo: required
+services:
+  - docker
+notifications:
+  slack: teamcarnell:zhTADgjsb7yJ5RPEd7LPNFwI
+  email:
+    - carnell28@gmail.com
+  on_success: always
+  on_failure: always
+env:
+  global:
+  matrix:
+    - TEST_DIR=licensing-service;TMX_DOCKER_IMAGE=johncarnell/tmx-licensing-service:chapter6
+    - TEST_DIR=organization-service;TMX_DOCKER_IMAGE=johncarnell/tmx-organization-service:chapter6
+    - TEST_DIR=confsvr;TMX_DOCKER_IMAGE=johncarnell/tmx-confsvr:chapter6
+    - TEST_DIR=eurekasvr;TMX_DOCKER_IMAGE=johncarnell/tmx-eurekasvr:chapter6
+    - TEST_DIR=fluentd;TMX_DOCKER_IMAGE=johncarnell/tmx-fluentd:chapter6
+    - TEST_DIR=zuulsvr;TMX_DOCKER_IMAGE=johncarnell/tmx-zuulsvr:chapter6
+script:
+  - cd $TEST_DIR
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+  - mvn clean package docker:build
+  - docker push $TMX_DOCKER_IMAGE

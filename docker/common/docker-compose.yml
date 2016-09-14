@@ -18,6 +18,7 @@ zuulserver:
       - "5555:5555"
     links:
       - "eurekaserver:eurekaserver"
+      - "fluentd:fluentd"
     environment:
       PROFILE: "default"
       SERVER_PORT: "5555"

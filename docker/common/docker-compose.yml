@@ -1,10 +1,10 @@
 eurekaserver:
-   image:   tmx-eurekasvr:chapter6
+   image:   johncarnell/tmx-eurekasvr:chapter6
    ports:
        - "8761:8761"
 
 configserver:
-    image: tmx-chapter6-confsvr
+    image: johncarnell/tmx-chapter6-confsvr:chapter6
     ports:
        - "8888:8888"
     links:
@@ -13,7 +13,7 @@ configserver:
        EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
 
 zuulserver:
-    image: tmx-zuulsvr:chapter6
+    image: johncarnell/tmx-zuulsvr:chapter6
     ports:
       - "5555:5555"
     links:
@@ -33,7 +33,7 @@ database:
       - POSTGRES_DB=eagle_eye_local
 
 licensingservice:
-    image: tmx-licensing-service:chapter6
+    image: johncarnell/tmx-licensing-service:chapter6
     ports:
       - "8080:8080"
       - "8090:8090"
@@ -50,7 +50,7 @@ licensingservice:
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
 
 organizationservice:
-    image: tmx-organization-service:chapter6
+    image: johncarnell/tmx-organization-service:chapter6
     ports:
       - "8085:8085"
     links:
@@ -87,7 +87,7 @@ kibana:
     - es:elasticsearch
 
 fluentd:
-    image: jcc-fluent
+    image: johncarnell/tmx-fluentd:chapter6
     ports:
       - 24224:24224
       - 9980:9980

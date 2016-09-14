@@ -4,7 +4,7 @@ eurekaserver:
        - "8761:8761"
 
 configserver:
-    image: johncarnell/tmx-chapter6-confsvr:chapter6
+    image: johncarnell/tmx-confsvr:chapter6
     ports:
        - "8888:8888"
     links:

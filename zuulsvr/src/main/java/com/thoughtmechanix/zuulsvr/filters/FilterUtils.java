@@ -43,17 +43,27 @@ public class FilterUtils {
 
     public  final String getOrgId(){
         RequestContext ctx = RequestContext.getCurrentContext();
-        return ctx.getZuulRequestHeaders().get(ORG_ID);
+        if (ctx.getRequest().getHeader(ORG_ID) !=null) {
+            return ctx.getRequest().getHeader(ORG_ID);
+        }
+        else{
+            return  ctx.getZuulRequestHeaders().get(ORG_ID);
+        }
     }
 
-    public static void setOrgId(String orgId){
+    public void setOrgId(String orgId){
         RequestContext ctx = RequestContext.getCurrentContext();
         ctx.addZuulRequestHeader(ORG_ID,  orgId);
     }
 
     public final String getUserId(){
         RequestContext ctx = RequestContext.getCurrentContext();
-        return ctx.getRequest().getHeader(USER_ID);
+        if (ctx.getRequest().getHeader(USER_ID) !=null) {
+            return ctx.getRequest().getHeader(USER_ID);
+        }
+        else{
+            return  ctx.getZuulRequestHeaders().get(USER_ID);
+        }
     }
 
     public void setUserId(String userId){
@@ -72,7 +82,7 @@ public class FilterUtils {
         String log ="{'serviceName':'%s'," +
                 "'correlationId':'%s'," +
                 "'organizationId':'%s'," +
-                "'userId':'%s'" +
+                "'userId':'%s'," +
                 "'message':'%s'}";
 
         String msg = String.format(log,

@@ -1,4 +1,4 @@
-package com.thoughtmechanix.organization.utils;
+package com.thoughtmechanix.authentication.utils;
 
 import org.fluentd.logger.FluentLogger;
 import org.springframework.http.HttpHeaders;
@@ -28,7 +28,7 @@ public class UserContext {
     public static void setUserId(String aUser) {userId.set(aUser);}
 
     public static String getOrgId() { return orgId.get(); }
-    public static void setOrgId(String aOrg) {orgId.set(aOrg);}
+    public static void setOrgId(String aOrg) {userId.set(aOrg);}
 
     private static FluentLogger FLOG = FluentLogger.getLogger("tmx", "fluentd", 24224);
 
@@ -41,7 +41,7 @@ public class UserContext {
                 "'message':'%s'}";
 
         String msg = String.format(log,
-                "ORGANIZATION",
+                "AUTHENTICATION",
                 getCorrelationId(),
                 getOrgId(),
                 getUserId(),

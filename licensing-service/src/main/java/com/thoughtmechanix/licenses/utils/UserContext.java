@@ -28,7 +28,7 @@ public class UserContext {
     public static void setUserId(String aUser) {userId.set(aUser);}
 
     public static String getOrgId() { return orgId.get(); }
-    public static void setOrgId(String aOrg) {userId.set(aOrg);}
+    public static void setOrgId(String aOrg) {orgId.set(aOrg);}
 
     private static FluentLogger FLOG = FluentLogger.getLogger("tmx", "fluentd", 24224);
 
@@ -37,7 +37,7 @@ public class UserContext {
         String log = "{'serviceName':'%s'," +
                 "'correlationId':'%s'," +
                 "'organizationId':'%s'," +
-                "'userId':'%s'" +
+                "'userId':'%s'," +
                 "'message':'%s'}";
 
         String msg = String.format(log,

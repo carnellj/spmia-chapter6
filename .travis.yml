@@ -24,6 +24,7 @@ env:
   - TEST_DIR=eurekasvr;TMX_DOCKER_IMAGE=johncarnell/tmx-eurekasvr:chapter6
   - TEST_DIR=fluentd;TMX_DOCKER_IMAGE=johncarnell/tmx-fluentd:chapter6
   - TEST_DIR=zuulsvr;TMX_DOCKER_IMAGE=johncarnell/tmx-zuulsvr:chapter6
+  - TEST_DIR=authenticationservice;TMX_DOCKER_IMAGE=johncarnell/tmx-authenticationservice:chapter6
 script:
 - cd $TEST_DIR
 - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD

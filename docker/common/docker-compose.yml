@@ -37,7 +37,6 @@ licensingservice:
     image: johncarnell/tmx-licensing-service:chapter6
     ports:
       - "8080:8080"
-      - "8090:8090"
     links:
       - "database:database"
       - "configserver:configserver"
@@ -47,6 +46,23 @@ licensingservice:
     environment:
       PROFILE: "default"
       SERVER_PORT: "8080"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+
+authenticationservice:
+    image: johncarnell/tmx-authentication-service:chapter6
+    ports:
+      - "8095:8095"
+    links:
+      - "database:database"
+      - "configserver:configserver"
+      - "eurekaserver:eurekaserver"
+      - "zuulserver:zuulserver"
+      - "es:es"
+      - "fluentd:fluentd"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "8095"
       CONFIGSERVER_URI: "http://configserver:8888"
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
 

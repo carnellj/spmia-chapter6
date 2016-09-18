@@ -65,6 +65,4 @@ public class Organization {
     public void setContactPhone(String contactPhone) {
         this.contactPhone = contactPhone;
     }
-
-
 }

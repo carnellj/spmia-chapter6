@@ -2,6 +2,7 @@ package com.thoughtmechanix.zuulsvr;
 
 import com.thoughtmechanix.zuulsvr.filters.AuthenticationFilter;
 import com.thoughtmechanix.zuulsvr.filters.ResponseFilter;
+import com.thoughtmechanix.zuulsvr.filters.SpecialRoutesFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -29,6 +30,9 @@ public class ZuulServerApplication {
     public ResponseFilter responseFilter(){
         return new ResponseFilter();
     }
+
+    @Bean
+    public SpecialRoutesFilter routesFilter() {return new SpecialRoutesFilter();}
 
     public static void main(String[] args) {
         SpringApplication.run(ZuulServerApplication.class, args);

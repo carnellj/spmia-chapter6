@@ -19,7 +19,8 @@ public class FilterUtils {
     public static final String ORG_ID         = "tmx-org-id";
     public static final String PRE_FILTER_TYPE = "pre";
     public static final String POST_FILTER_TYPE = "post";
-    public static final String ROUTE_FILTER_TYPE = "routing";
+    public static final String ROUTE_FILTER_TYPE = "route";
+    public static final String ERROR_FILTER_TYPE = "error";
 
     private FluentLogger getFLOG() {
         return FLOG;

@@ -19,7 +19,7 @@ zuulserver:
     links:
       - "eurekaserver:eurekaserver"
       - "fluentd:fluentd"
-      - "specialroutes-service:specialroutes-service"
+      - "orgservice-new:orgservice-new"
     environment:
       PROFILE: "default"
       SERVER_PORT: "5555"
@@ -42,7 +42,6 @@ licensingservice:
       - "database:database"
       - "configserver:configserver"
       - "eurekaserver:eurekaserver"
-      - "zuulserver:zuulserver"
       - "fluentd:fluentd"
     environment:
       PROFILE: "default"
@@ -59,12 +58,27 @@ organizationservice:
       - "database:database"
       - "configserver:configserver"
       - "eurekaserver:eurekaserver"
-      - "zuulserver:zuulserver"
       - "es:es"
       - "fluentd:fluentd"
     environment:
       PROFILE: "default"
       SERVER_PORT: "8085"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+
+orgservice-new:
+    image: johncarnell/tmx-orgservice-new:chapter6
+    ports:
+      - "8087:8087"
+    links:
+      - "database:database"
+      - "configserver:configserver"
+      - "eurekaserver:eurekaserver"
+      - "es:es"
+      - "fluentd:fluentd"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "8087"
       CONFIGSERVER_URI: "http://configserver:8888"
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
 

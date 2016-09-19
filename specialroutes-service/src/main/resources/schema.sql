@@ -6,4 +6,4 @@ CREATE TABLE abtesting (
   weight            INT);
 
 
-INSERT INTO abtesting (service_name,  endpoint, weight) VALUES ('organizationservice', 'http://orgservice-new',2);
+INSERT INTO abtesting (service_name,  endpoint, weight) VALUES ('organizationservice', 'http://orgservice-new:8087',2);

@@ -34,7 +34,7 @@ public class OrganizationServiceController {
 
     @RequestMapping(value="/{organizationId}",method = RequestMethod.GET)
     public Organization getOrganization( @PathVariable("organizationId") String organizationId) {
-
+        System.out.println("----> I AM IN THE OLD ROUTE CODE");
 
         UserContext.flog(String.format("Looking up data for org %s",organizationId ));
 

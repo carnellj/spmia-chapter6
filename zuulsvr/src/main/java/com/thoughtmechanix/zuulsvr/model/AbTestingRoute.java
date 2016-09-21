@@ -2,9 +2,17 @@ package com.thoughtmechanix.zuulsvr.model;
 
 public class AbTestingRoute {
     String serviceName;
+    String active;
     String endpoint;
     Integer weight;
 
+    public String getActive() {
+        return active;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
+    }
 
     public String getServiceName() {
         return serviceName;

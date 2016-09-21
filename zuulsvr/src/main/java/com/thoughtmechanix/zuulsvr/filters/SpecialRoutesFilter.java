@@ -41,6 +41,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 
 public class SpecialRoutesFilter extends ZuulFilter {
@@ -94,9 +95,7 @@ public class SpecialRoutesFilter extends ZuulFilter {
     private String buildRouteString(String oldEndpoint, String newEndpoint, String serviceName){
         int index = oldEndpoint.indexOf(serviceName);
 
-        String strippedRoute = oldEndpoint.substring(index+serviceName.length());
-
-        System.out.printf("!!!!ROUTE STRING: %s%s\n", newEndpoint, strippedRoute);
+        String strippedRoute = oldEndpoint.substring(index + serviceName.length());
         return String.format("%s%s", newEndpoint, strippedRoute);
     }
 
@@ -207,6 +206,18 @@ public class SpecialRoutesFilter extends ZuulFilter {
 
 
 
+    public boolean useSpecialRoute(AbTestingRoute testRoute){
+        Random random = new Random();
+
+        if (testRoute.getActive().equals("N")) return false;
+
+        int value = random.nextInt(10 - testRoute.getWeight() + 1) + testRoute.getWeight();
+
+        if (value<=testRoute.getWeight()) return true;
+
+        return false;
+    }
+
     @Override
     public Object run() {
 
@@ -214,21 +225,26 @@ public class SpecialRoutesFilter extends ZuulFilter {
 
         AbTestingRoute abTestRoute = getAbRoutingInfo( ctx.get("serviceId").toString());
 
-
-        System.out.println("!!!!! CTX: " + ctx.getRequest().getRequestURI());
-        System.out.println("!!!!! CTX2: " + ctx.get("serviceId"));
-
         String route = "";
         if (abTestRoute!=null) {
-            System.out.printf("!!!! ABTESTROUTE: %s\n" , abTestRoute.getEndpoint());
-            System.out.printf("!!!! New Route2 : %s\n", buildRouteString(ctx.getRequest().getRequestURI(),
-                    abTestRoute.getEndpoint(),
-                    ctx.get("serviceId").toString()));
             route = buildRouteString(ctx.getRequest().getRequestURI(),
                     abTestRoute.getEndpoint(),
                     ctx.get("serviceId").toString());
+        }else{
+            return null;
         }
 
+
+        if (useSpecialRoute(abTestRoute)) {
+            forwardToSpecialRoute(route);
+        }
+
+        return null;
+
+
+    }
+
+    private void forwardToSpecialRoute(String route) {
         RequestContext context = RequestContext.getCurrentContext();
         HttpServletRequest request = context.getRequest();
 
@@ -242,7 +258,6 @@ public class SpecialRoutesFilter extends ZuulFilter {
             context.setChunkedRequestBody();
         }
 
-       // String uri = this.helper.buildZuulRequestURI(request);
 
         this.helper.addIgnoredHeaders();
         CloseableHttpClient httpClient = null;
@@ -256,7 +271,7 @@ public class SpecialRoutesFilter extends ZuulFilter {
         }
         catch (Exception ex ) {
             ex.printStackTrace();
-            System.out.println("!$@#$#@$->>> Things went south " +  ex);
+
         }
         finally{
             try {
@@ -264,9 +279,5 @@ public class SpecialRoutesFilter extends ZuulFilter {
             }
             catch(IOException ex){}
         }
-
-        //ctx.setRes
-        return null;
-
     }
 }

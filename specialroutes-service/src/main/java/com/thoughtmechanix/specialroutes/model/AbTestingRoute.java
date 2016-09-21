@@ -14,12 +14,22 @@ public class AbTestingRoute {
     @Column(name = "service_name", nullable = false)
     String serviceName;
 
+    @Column(name="active", nullable = false)
+    String active;
+
     @Column(name = "endpoint", nullable = false)
     String endpoint;
 
     @Column(name = "weight", nullable = false)
     Integer weight;
 
+    public String getActive() {
+        return active;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
+    }
 
     public String getServiceName() {
         return serviceName;

@@ -20,6 +20,7 @@ env:
   matrix:
   - TEST_DIR=licensing-service;TMX_DOCKER_IMAGE=johncarnell/tmx-licensing-service:chapter6
   - TEST_DIR=organization-service;TMX_DOCKER_IMAGE=johncarnell/tmx-organization-service:chapter6
+  - TEST_DIR=orgservice-new;TMX_DOCKER_IMAGE=johncarnell/tmx-orgservice-new:chapter6
   - TEST_DIR=confsvr;TMX_DOCKER_IMAGE=johncarnell/tmx-confsvr:chapter6
   - TEST_DIR=eurekasvr;TMX_DOCKER_IMAGE=johncarnell/tmx-eurekasvr:chapter6
   - TEST_DIR=fluentd;TMX_DOCKER_IMAGE=johncarnell/tmx-fluentd:chapter6

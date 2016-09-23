@@ -211,9 +211,10 @@ public class SpecialRoutesFilter extends ZuulFilter {
 
         if (testRoute.getActive().equals("N")) return false;
 
-        int value = random.nextInt(10 - testRoute.getWeight() + 1) + testRoute.getWeight();
+        int value = random.nextInt((10 - 1) + 1) + 1;
 
-        if (value<=testRoute.getWeight()) return true;
+        System.out.println("I AM IN THE SPECIAL ROUTE CODE: " + value);
+        if (testRoute.getWeight()<value) return true;
 
         return false;
     }

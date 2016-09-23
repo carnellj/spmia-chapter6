@@ -21,13 +21,13 @@ logging:
     com.netflix: WARN
     org.springframework.web: WARN
     com.thoughtmechanix: DEBUG
-
-
+#
+#
 zuul:
- # debug:
-  #  request: true
-  prefix:  /api
+#  debug:
+#    request: true
+#  prefix:  /api
 
-#  routes:
-#    organization: /organizationservice/**
-#    licensing: /licensingservice/**
+  routes:
+    organizationservice: /organization/**
+    licensingservice: /licensing/**

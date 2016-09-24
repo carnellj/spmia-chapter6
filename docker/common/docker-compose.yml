@@ -19,10 +19,12 @@ zuulserver:
     links:
       - "eurekaserver:eurekaserver"
       - "fluentd:fluentd"
+      - "configserver:configserver"
       - "orgservice-new:orgservice-new"
     environment:
       PROFILE: "default"
       SERVER_PORT: "5555"
+      CONFIGSERVER_URI: "http://configserver:8888"
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
 
 database:

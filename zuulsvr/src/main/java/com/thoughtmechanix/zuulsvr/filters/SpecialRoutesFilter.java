@@ -96,7 +96,8 @@ public class SpecialRoutesFilter extends ZuulFilter {
         int index = oldEndpoint.indexOf(serviceName);
 
         String strippedRoute = oldEndpoint.substring(index + serviceName.length());
-        return String.format("%s%s", newEndpoint, strippedRoute);
+        System.out.println("Target route: " + String.format("%s/%s", newEndpoint, strippedRoute));
+        return String.format("%s/%s", newEndpoint, strippedRoute);
     }
 
     private String getVerb(HttpServletRequest request) {
@@ -213,10 +214,17 @@ public class SpecialRoutesFilter extends ZuulFilter {
 
         int value = random.nextInt((10 - 1) + 1) + 1;
 
-        System.out.println("I AM IN THE SPECIAL ROUTE CODE: " + value);
         if (testRoute.getWeight()<value) return true;
 
         return false;
+    }
+
+    private String getServiceId(){
+        RequestContext ctx = RequestContext.getCurrentContext();
+
+        //We might not have a service id if we are using a static, non-eureka route.
+        if (ctx.get("serviceId")==null) return "";
+        return ctx.get("serviceId").toString();
     }
 
     @Override
@@ -224,7 +232,7 @@ public class SpecialRoutesFilter extends ZuulFilter {
 
         RequestContext ctx = RequestContext.getCurrentContext();
 
-        AbTestingRoute abTestRoute = getAbRoutingInfo( ctx.get("serviceId").toString());
+        AbTestingRoute abTestRoute = getAbRoutingInfo( getServiceId() );
 
         String route = "";
         if (abTestRoute!=null) {

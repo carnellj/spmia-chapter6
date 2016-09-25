@@ -52,7 +52,6 @@ licensingservice:
       CONFIGSERVER_URI: "http://configserver:8888"
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
 
-
 organizationservice:
     image: johncarnell/tmx-organization-service:chapter6
     ports:

@@ -73,6 +73,11 @@ public class AuthenticationFilter extends ZuulFilter {
     public Object run() {
         RequestContext ctx = RequestContext.getCurrentContext();
 
+        //If we are dealing with a call to the authentication service, let the call go through without authenticating
+        if (filterUtils.getServiceId().equals("authenticationservice")){
+            return null;
+        }
+
         if (isAuthTokenPresent()){
            filterUtils.flog("Authentication token is present.");
         }else{

@@ -1,14 +1,11 @@
 package com.thoughtmechanix.zuulsvr.filters;
 
 import com.netflix.zuul.ZuulFilter;
-import com.netflix.zuul.context.RequestContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
 public class TrackingFilter extends ZuulFilter{
-    private static final int FILTER_ORDER =  1;
+    private static final int      FILTER_ORDER =  1;
     private static final boolean  SHOULD_FILTER=true;
 
     @Autowired

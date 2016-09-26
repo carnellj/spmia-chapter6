@@ -162,7 +162,6 @@ public class SpecialRoutesFilter extends ZuulFilter {
             throws Exception {
         Map<String, Object> info = this.helper.debug(verb, uri, headers, params,
                 requestEntity);
-        //URL host = RequestContext.getCurrentContext().getRouteHost();
         URL host = new URL( uri );
         HttpHost httpHost = getHttpHost(host);
 
@@ -198,10 +197,6 @@ public class SpecialRoutesFilter extends ZuulFilter {
             return zuulResponse;
         }
         finally {
-            // When HttpClient instance is no longer needed,
-            // shut down the connection manager to ensure
-            // immediate deallocation of all system resources
-            // httpclient.getConnectionManager().shutdown();
         }
     }
 
@@ -219,20 +214,14 @@ public class SpecialRoutesFilter extends ZuulFilter {
         return false;
     }
 
-    private String getServiceId(){
-        RequestContext ctx = RequestContext.getCurrentContext();
 
-        //We might not have a service id if we are using a static, non-eureka route.
-        if (ctx.get("serviceId")==null) return "";
-        return ctx.get("serviceId").toString();
-    }
 
     @Override
     public Object run() {
 
         RequestContext ctx = RequestContext.getCurrentContext();
 
-        AbTestingRoute abTestRoute = getAbRoutingInfo( getServiceId() );
+        AbTestingRoute abTestRoute = getAbRoutingInfo( filterUtils.getServiceId() );
 
         String route = "";
         if (abTestRoute!=null) {

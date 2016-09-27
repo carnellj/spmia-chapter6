@@ -27,6 +27,7 @@ import org.springframework.cloud.netflix.zuul.filters.route.SimpleHostRoutingFil
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
@@ -43,7 +44,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-
+@Component
 public class SpecialRoutesFilter extends ZuulFilter {
     private static final int FILTER_ORDER =  3;
     private static final boolean SHOULD_FILTER = true;

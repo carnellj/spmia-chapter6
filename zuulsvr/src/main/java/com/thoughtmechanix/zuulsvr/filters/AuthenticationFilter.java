@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+@Component
 public class AuthenticationFilter extends ZuulFilter {
     private static final int FILTER_ORDER =  2;
     private static final boolean  SHOULD_FILTER=true;
@@ -74,7 +76,7 @@ public class AuthenticationFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
 
         //If we are dealing with a call to the authentication service, let the call go through without authenticating
-        if (filterUtils.getServiceId().equals("authenticationservice")){
+        if ( ctx.getRequest().getRequestURI().equals("/api/authenticationservice/v1/authenticate")){
             return null;
         }
 

@@ -14,22 +14,6 @@ import com.thoughtmechanix.zuulsvr.filters.TrackingFilter;
 @EnableZuulProxy
 public class ZuulServerApplication {
 
-    @Bean
-    public TrackingFilter trackingFilter(){
-        return new TrackingFilter();
-    }
-
-    @Bean
-    public AuthenticationFilter authenticationFilter(){ return new AuthenticationFilter();}
-
-    @Bean
-    public ResponseFilter responseFilter(){
-        return new ResponseFilter();
-    }
-
-    @Bean
-    public SpecialRoutesFilter routesFilter() {return new SpecialRoutesFilter();}
-
     public static void main(String[] args) {
         SpringApplication.run(ZuulServerApplication.class, args);
     }

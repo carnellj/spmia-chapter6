@@ -4,7 +4,9 @@ package com.thoughtmechanix.zuulsvr.filters;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ResponseFilter extends ZuulFilter{
     private static final int  FILTER_ORDER=1;
     private static final boolean  SHOULD_FILTER=true;

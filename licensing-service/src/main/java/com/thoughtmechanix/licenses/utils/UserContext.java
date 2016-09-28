@@ -1,11 +1,14 @@
 package com.thoughtmechanix.licenses.utils;
 
 import org.fluentd.logger.FluentLogger;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class UserContext {
     public static final String CORRELATION_ID = "tmx-correlation-id";
     public static final String AUTH_TOKEN     = "tmx-auth-token";

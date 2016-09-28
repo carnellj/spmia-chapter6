@@ -1,8 +1,5 @@
 package com.thoughtmechanix.licenses.utils;
 
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.Filter;
@@ -16,36 +13,24 @@ import java.io.IOException;
 
 @Component
 public class UserContextFilter implements Filter {
-
-    private static final Logger logger = LoggerFactory.getLogger(UserContextFilter.class);
-
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-    }
-
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
 
 
-        final HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-        String correlationId = httpServletRequest.getHeader(UserContext.CORRELATION_ID);
-        String userId = httpServletRequest.getHeader(UserContext.USER_ID);
-        String authToken = httpServletRequest.getHeader(UserContext.AUTH_TOKEN);
-        String orgId = httpServletRequest.getHeader(UserContext.ORG_ID);
+        HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
 
-        logger.debug(">>>> I am in the licensing service UserContextFilter: {}", correlationId);
-        UserContext.setCorrelationId(correlationId);
-        UserContext.setUserId(userId);
-        UserContext.setAuthToken(authToken);
-        UserContext.setOrgId(orgId);
+        UserContext.setCorrelationId(  httpServletRequest.getHeader(UserContext.CORRELATION_ID) );
+        UserContext.setUserId( httpServletRequest.getHeader(UserContext.USER_ID) );
+        UserContext.setAuthToken( httpServletRequest.getHeader(UserContext.AUTH_TOKEN) );
+        UserContext.setOrgId( httpServletRequest.getHeader(UserContext.ORG_ID) );
 
         filterChain.doFilter(httpServletRequest, servletResponse);
     }
 
     @Override
-    public void destroy() {
+    public void init(FilterConfig filterConfig) throws ServletException {}
 
-    }
+    @Override
+    public void destroy() {}
 }

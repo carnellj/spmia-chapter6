@@ -8,7 +8,6 @@ import org.springframework.http.client.ClientHttpResponse;
 
 import java.io.IOException;
 
-
 public class UserContextInterceptor implements ClientHttpRequestInterceptor {
 
     @Override

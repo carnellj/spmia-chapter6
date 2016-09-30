@@ -1,6 +1,7 @@
 package com.thoughtmechanix.zuulsvr.filters;
 
 import com.netflix.zuul.ZuulFilter;
+import com.netflix.zuul.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -47,6 +48,9 @@ public class TrackingFilter extends ZuulFilter{
             filterUtils.setCorrelationId(generateCorrelationId());
             filterUtils.flog(String.format("tmx-correlation-id generated in tracking filter: {}.", filterUtils.getCorrelationId()));
         }
+
+        RequestContext ctx = RequestContext.getCurrentContext();
+        filterUtils.flog(String.format("Processing incoming request for {}.",  ctx.getRequest().getRequestURI()));
         return null;
     }
 }

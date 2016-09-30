@@ -17,11 +17,6 @@ import java.util.Collections;
 @EnableEurekaClient
 @EnableCircuitBreaker
 public class Application {
-//    @Bean
-//    public Filter userContextFilter() {
-//        UserContextFilter userContextFilter = new UserContextFilter();
-//        return userContextFilter;
-//    }
 
     @Primary
     @Bean

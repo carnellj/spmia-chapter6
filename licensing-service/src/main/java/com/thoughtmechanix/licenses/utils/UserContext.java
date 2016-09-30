@@ -1,7 +1,6 @@
 package com.thoughtmechanix.licenses.utils;
 
 import org.fluentd.logger.FluentLogger;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
@@ -53,10 +52,4 @@ public class UserContext {
         FLOG.log("tmx",data);
     }
 
-    public static HttpHeaders getHttpHeaders(){
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set(CORRELATION_ID, getCorrelationId());
-
-        return httpHeaders;
-    }
 }

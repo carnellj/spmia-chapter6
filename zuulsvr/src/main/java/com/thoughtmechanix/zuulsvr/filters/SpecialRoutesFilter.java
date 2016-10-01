@@ -4,7 +4,6 @@ package com.thoughtmechanix.zuulsvr.filters;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.thoughtmechanix.zuulsvr.model.AbTestingRoute;
-import com.thoughtmechanix.zuulsvr.model.UserInfo;
 import org.apache.http.Header;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpRequest;
@@ -21,9 +20,6 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicHttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.zuul.filters.ProxyRequestHelper;
-import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
-
-import org.springframework.cloud.netflix.zuul.filters.route.SimpleHostRoutingFilter;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,7 +42,7 @@ import java.util.Random;
 
 @Component
 public class SpecialRoutesFilter extends ZuulFilter {
-    private static final int FILTER_ORDER =  3;
+    private static final int FILTER_ORDER =  1;
     private static final boolean SHOULD_FILTER = true;
 
     @Autowired
@@ -75,21 +71,15 @@ public class SpecialRoutesFilter extends ZuulFilter {
     private AbTestingRoute getAbRoutingInfo(String serviceName){
         ResponseEntity<AbTestingRoute> restExchange = null;
         try {
-            restExchange =
-                    restTemplate.exchange(
-                            "http://specialroutesservice/v1/route/abtesting/{serviceName}",
-                            HttpMethod.GET,
-                            null, AbTestingRoute.class, serviceName);
+            restExchange = restTemplate.exchange(
+                             "http://specialroutesservice/v1/route/abtesting/{serviceName}",
+                             HttpMethod.GET,
+                             null, AbTestingRoute.class, serviceName);
         }
         catch(HttpClientErrorException ex){
-            if (ex.getStatusCode()== HttpStatus.NOT_FOUND) {
-                return null;
-            }
-
+            if (ex.getStatusCode()== HttpStatus.NOT_FOUND) return null;
             throw ex;
         }
-
-
         return restExchange.getBody();
     }
 
@@ -215,32 +205,20 @@ public class SpecialRoutesFilter extends ZuulFilter {
         return false;
     }
 
-
-
     @Override
     public Object run() {
-
         RequestContext ctx = RequestContext.getCurrentContext();
 
         AbTestingRoute abTestRoute = getAbRoutingInfo( filterUtils.getServiceId() );
 
-        String route = "";
-        if (abTestRoute!=null) {
-            route = buildRouteString(ctx.getRequest().getRequestURI(),
+        if (abTestRoute!=null && useSpecialRoute(abTestRoute)) {
+            String route = buildRouteString(ctx.getRequest().getRequestURI(),
                     abTestRoute.getEndpoint(),
                     ctx.get("serviceId").toString());
-        }else{
-            return null;
-        }
-
-
-        if (useSpecialRoute(abTestRoute)) {
             forwardToSpecialRoute(route);
         }
 
         return null;
-
-
     }
 
     private void forwardToSpecialRoute(String route) {
@@ -256,7 +234,6 @@ public class SpecialRoutesFilter extends ZuulFilter {
         if (request.getContentLength() < 0) {
             context.setChunkedRequestBody();
         }
-
 
         this.helper.addIgnoredHeaders();
         CloseableHttpClient httpClient = null;

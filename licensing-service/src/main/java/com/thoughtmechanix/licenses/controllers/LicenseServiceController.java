@@ -44,8 +44,9 @@ public class LicenseServiceController {
 
     @RequestMapping(value="/{licenseId}",method = RequestMethod.GET)
     public License getLicenses( @PathVariable("organizationId") String organizationId,
-                                @PathVariable("licenseId") String licenseId) {
+                                @PathVariable("licenseId") String licenseId) throws InterruptedException {
         UserContext.flog("Entering the license-service-controller");
+        Thread.sleep(2000);
         logger.debug("Found tmx-correlation-id in license-service-controller: {} ", request.getHeader("tmx-correlation-id"));
         return licenseService.getLicense(organizationId, licenseId);
     }

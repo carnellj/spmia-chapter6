@@ -6,7 +6,7 @@ jdk:
 - oraclejdk8
 sudo: required
 services:
-- docker
+  - docker
 notifications:
   slack: teamcarnell:zhTADgjsb7yJ5RPEd7LPNFwI
   email:

@@ -25,6 +25,6 @@ script:
   - docker push johncarnell/tmx-organization-service:chapter6
   - docker push johncarnell/tmx-orgservice-new:chapter6
   - docker push johncarnell/tmx-confsvr:chapter6
-  - docker push johncarnell/johncarnell/tmx-eurekasvr:chapter6
+  - docker push johncarnell/tmx-eurekasvr:chapter6
   - docker push johncarnell/tmx-zuulsvr:chapter6
   - docker push johncarnell/tmx-specialroutes-service:chapter6

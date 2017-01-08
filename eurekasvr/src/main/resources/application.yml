@@ -7,7 +7,7 @@ eureka:
     registerWithEureka: false
     fetchRegistry: false
   server:
-    waitTimeInMsWhenSyncEmpty: 0
+    waitTimeInMsWhenSyncEmpty: 30
 
 #Setting logging levels
 logging:

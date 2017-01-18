@@ -7,6 +7,10 @@ import com.thoughtmechanix.licenses.config.ServiceConfig;
 import com.thoughtmechanix.licenses.model.License;
 import com.thoughtmechanix.licenses.model.Organization;
 import com.thoughtmechanix.licenses.repository.LicenseRepository;
+import com.thoughtmechanix.licenses.utils.UserContext;
+import com.thoughtmechanix.licenses.utils.UserContextHolder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +31,16 @@ public class LicenseService {
     @Autowired
     OrganizationRestTemplateClient organizationRestClient;
 
+    private static final Logger logger = LoggerFactory.getLogger(LicenseService.class);
 
-    public License getLicense(String organizationId,String licenseId) {
+    @HystrixCommand
+//            (
+//            commandProperties = {
+//                    @HystrixProperty(name="execution.isolation.strategy", value="SEMAPHORE")
+//            }
+//    )
+    public License getLicense(String organizationId,String licenseId) throws InterruptedException {
+        logger.debug("Found tmx-correlation-id in license-service-controller: {}. Thread Id: {} ", UserContextHolder.getContext().getCorrelationId(), Thread.currentThread().getId());
         License license = licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId);
 
         Organization org = getOrganization(organizationId);
@@ -77,7 +89,7 @@ public class LicenseService {
                      @HystrixProperty(name="metrics.rollingStats.numBuckets", value="5")}
     )
     public List<License> getLicensesByOrg(String organizationId){
-        randomlyRunLong();
+        //randomlyRunLong();
 
         return licenseRepository.findByOrganizationId(organizationId);
     }

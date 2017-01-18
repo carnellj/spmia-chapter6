@@ -29,8 +29,7 @@ public class ThreadLocalConfiguration {
                     .getCommandExecutionHook();
 
             HystrixPlugins.reset();
-
-            // Registers existing plugins excepts the Concurrent Strategy plugin.
+            
             HystrixPlugins.getInstance().registerConcurrencyStrategy(new ThreadLocalAwareStrategy(existingConcurrencyStrategy));
             HystrixPlugins.getInstance().registerEventNotifier(eventNotifier);
             HystrixPlugins.getInstance().registerMetricsPublisher(metricsPublisher);

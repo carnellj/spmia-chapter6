@@ -34,11 +34,6 @@ public class LicenseService {
     private static final Logger logger = LoggerFactory.getLogger(LicenseService.class);
 
     @HystrixCommand
-//            (
-//            commandProperties = {
-//                    @HystrixProperty(name="execution.isolation.strategy", value="SEMAPHORE")
-//            }
-//    )
     public License getLicense(String organizationId,String licenseId) throws InterruptedException {
         logger.debug("Found tmx-correlation-id in license-service-controller: {}. Thread Id: {} ", UserContextHolder.getContext().getCorrelationId(), Thread.currentThread().getId());
         License license = licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId);

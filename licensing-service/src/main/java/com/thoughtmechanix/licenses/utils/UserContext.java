@@ -1,11 +1,6 @@
 package com.thoughtmechanix.licenses.utils;
 
-import org.fluentd.logger.FluentLogger;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Component
 public class UserContext {

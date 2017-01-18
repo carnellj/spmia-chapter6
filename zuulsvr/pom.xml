@@ -47,12 +47,6 @@
     </dependency>
 
     <dependency>
-      <groupId>org.fluentd</groupId>
-      <artifactId>fluent-logger</artifactId>
-      <version>0.3.2</version>
-    </dependency>
-
-    <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
       <version>4.5.2</version>

@@ -29,7 +29,7 @@ public class ThreadLocalConfiguration {
                     .getCommandExecutionHook();
 
             HystrixPlugins.reset();
-            
+
             HystrixPlugins.getInstance().registerConcurrencyStrategy(new ThreadLocalAwareStrategy(existingConcurrencyStrategy));
             HystrixPlugins.getInstance().registerEventNotifier(eventNotifier);
             HystrixPlugins.getInstance().registerMetricsPublisher(metricsPublisher);

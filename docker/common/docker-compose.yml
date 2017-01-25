@@ -82,17 +82,4 @@ services:
       EUREKASERVER_PORT:        "8761"
       DATABASESERVER_PORT:      "5432"
       CONFIGSERVER_PORT:        "8888"
-  es:
-    image: elasticsearch:2
-    ports:
-      - 9200:9200
-      - 9300:9300
-  kibana:
-    image: kibana
-    ports:
-      - 5601:5601
-  fluentd:
-      image: johncarnell/tmx-fluentd:chapter6
-      ports:
-        - 24224:24224
-        - 9980:9980
+

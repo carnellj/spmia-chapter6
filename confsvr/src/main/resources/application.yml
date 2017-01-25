@@ -24,25 +24,6 @@ spring:
           username: native-cloud-apps
           password: 0ffended
 
-
-####
-#Classpath and file-based solution
-####
-
-#server:
-#   port: 8888
-#spring:
-#  profiles:
-#    active: native
-#  cloud:
-#     config:
-#       server:
-#           native:
-#              searchLocations: file://<chapter 3>/confsvr/src/main/resources/config/licensingservice,
-#                               file://<chapter 3>confsvr/src/main/resources/config/organizationservice
-##              #searchLocations: classpath:config/,classpath:config/licensingservice
-
-
 #Setting logging levels
 logging:
   level:

@@ -75,11 +75,6 @@
       <artifactId>postgresql</artifactId>
       <version>9.1-901.jdbc4</version>
     </dependency>
-    <dependency>
-      <groupId>org.fluentd</groupId>
-      <artifactId>fluent-logger</artifactId>
-      <version>0.3.2</version>
-    </dependency>
   </dependencies>
 
   <properties>

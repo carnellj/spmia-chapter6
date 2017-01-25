@@ -2,6 +2,8 @@ package com.thoughtmechanix.zuulsvr.filters;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Component;
 public class TrackingFilter extends ZuulFilter{
     private static final int      FILTER_ORDER =  1;
     private static final boolean  SHOULD_FILTER=true;
+    private static final Logger logger = LoggerFactory.getLogger(TrackingFilter.class);
 
     @Autowired
     FilterUtils filterUtils;
@@ -42,15 +45,15 @@ public class TrackingFilter extends ZuulFilter{
     public Object run() {
 
         if (isCorrelationIdPresent()) {
-            filterUtils.flog(String.format("tmx-correlation-id found in tracking filter: %s. ", filterUtils.getCorrelationId()));
+           logger.debug("tmx-correlation-id found in tracking filter: {}. ", filterUtils.getCorrelationId());
         }
         else{
             filterUtils.setCorrelationId(generateCorrelationId());
-            filterUtils.flog(String.format("tmx-correlation-id generated in tracking filter: {}.", filterUtils.getCorrelationId()));
+            logger.debug("tmx-correlation-id generated in tracking filter: {}.", filterUtils.getCorrelationId());
         }
 
         RequestContext ctx = RequestContext.getCurrentContext();
-        filterUtils.flog(String.format("Processing incoming request for {}.",  ctx.getRequest().getRequestURI()));
+        logger.debug("Processing incoming request for {}.",  ctx.getRequest().getRequestURI());
         return null;
     }
 }

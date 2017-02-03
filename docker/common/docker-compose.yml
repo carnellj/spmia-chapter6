@@ -11,6 +11,7 @@ services:
     environment:
        EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
        EUREKASERVER_PORT: 8761
+       ENCRYPT_KEY:       "IMSYMMETRIC"
   zuulserver:
     image: johncarnell/tmx-zuulsvr:chapter6
     ports:
@@ -82,4 +83,3 @@ services:
       EUREKASERVER_PORT:        "8761"
       DATABASESERVER_PORT:      "5432"
       CONFIGSERVER_PORT:        "8888"
-

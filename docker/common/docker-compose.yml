@@ -47,6 +47,7 @@ services:
       CONFIGSERVER_PORT:        "8888"
       ORGSERVERNEW_PORT:        "8087"
       ZUULSERVER_PORT:          "5555"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
   organizationservice:
     image: johncarnell/tmx-organization-service:chapter6
     ports:
@@ -59,6 +60,7 @@ services:
       EUREKASERVER_PORT:        "8761"
       DATABASESERVER_PORT:      "5432"
       CONFIGSERVER_PORT:        "8888"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
   orgservice-new:
     image: johncarnell/tmx-orgservice-new:chapter6
     ports:
@@ -71,6 +73,7 @@ services:
       EUREKASERVER_PORT:        "8761"
       DATABASESERVER_PORT:      "5432"
       CONFIGSERVER_PORT:        "8888"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
   specialroutes-service:
     image: johncarnell/tmx-specialroutes-service:chapter6
     ports:
@@ -83,3 +86,4 @@ services:
       EUREKASERVER_PORT:        "8761"
       DATABASESERVER_PORT:      "5432"
       CONFIGSERVER_PORT:        "8888"
+      ENCRYPT_KEY:       "IMSYMMETRIC"

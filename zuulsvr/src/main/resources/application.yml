@@ -17,9 +17,7 @@ eureka:
     serviceUrl:
         defaultZone: http://localhost:8761/eureka/
 
-#
-#zuul:
-#  prefix:  /api
-#  routes:
-#    organizationservice: /organization/**
-#    licensingservice: /licensing/**
+zuul:
+  prefix:  /api
+  routes:
+  organizationservice: /organization/**

@@ -20,4 +20,4 @@ eureka:
 zuul:
   prefix:  /api
   routes:
-  organizationservice: /organization/**
+    organizationservice: /organization/**

@@ -31,11 +31,7 @@ public class TrackingFilter extends ZuulFilter{
     }
 
     private boolean isCorrelationIdPresent(){
-      if (filterUtils.getCorrelationId() !=null){
-          return true;
-      }
-
-      return false;
+        return filterUtils.getCorrelationId() != null;
     }
 
     private String generateCorrelationId(){
